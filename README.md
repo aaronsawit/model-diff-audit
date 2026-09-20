@@ -22,8 +22,7 @@ needs a look: 1 finding(s) across 197 changed tensor(s)
 
 That output is real. It is from a capture-the-flag model in which a message had been hidden inside the weights.
 The rest of the model had been genuinely fine-tuned, so at a glance it looked like any other checkpoint. The
-embedding gave it away: 151,846 rows untouched, 90 rows edited. Finding those rows by hand took me most of a
-day. This finds them in one command.
+embedding gave it away: 151,846 rows untouched, 90 rows edited. Finding those rows by hand took hours. This finds them in one command.
 
 ## What it looks for
 
@@ -50,7 +49,7 @@ python3 model_diff_audit.py BASE SUSPECT --all      # list unchanged tensors too
 Exit code `0` identical or an ordinary fine-tune, `1` something needs a human look, `2` could not compare.
 
 It parses the safetensors header itself and memory-maps the data, so it never imports the model's code, never
-unpickles anything, and handles models larger than RAM. An 8 GB model pair took about four and a half minutes
+unpickles anything, and handles models larger than RAM. A pair of checkpoints totalling 7 GB took about four and a half minutes
 from a hard disk.
 
 ## Limits, stated plainly
